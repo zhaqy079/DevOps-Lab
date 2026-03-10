@@ -1,4 +1,4 @@
-﻿# VM set up & gitlab-self-hosted-lab
+﻿# VM set up & GitLab-self-hosted-lab
 
 ## Environment
 - Host: Windows
@@ -35,7 +35,21 @@ curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.de
 
 sudo EXTERNAL_URL="http://localhost" apt install gitlab-ce
 ```
+## GitLab Dependencies Comparison
+
+| Dependency | CentOS (Tutorial) | Ubuntu / Xubuntu (This Lab Setup) | Purpose |
+|-----------|------------------|-----------------------------|--------|
+| Package manager | yum | apt | System package manager |
+| curl | yum install curl | apt install curl | Download GitLab repository |
+| SSH server | openssh-server | openssh-server | Enable SSH access |
+| perl | perl | perl | Required runtime dependency |
+| SELinux tools | policycoreutils-python | —— | SELinux management |
+| certificates | —— | ca-certificates | HTTPS verification |
+| timezone | —— | tzdata | System timezone configuration |
+
+
 ## Access
 ```
 http://localhost
 ```
+
