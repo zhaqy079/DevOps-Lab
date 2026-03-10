@@ -50,6 +50,20 @@ sudo EXTERNAL_URL="http://localhost" apt install gitlab-ce
 
 ## Access
 ```
+// check status
+sudo gitlab-ctl status
+sudo gitlab-rake gitlab:env:info
+sudo gitlab-ctl tail
+
+// access at the browser 
 http://localhost
+
+// check root pwd
+sudo cat /etc/gitlab/initial_root_password
 ```
+
+### Or find initial pwd:
+
+
+
 
