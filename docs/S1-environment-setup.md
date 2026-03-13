@@ -60,9 +60,16 @@ http://localhost
 
 // check root pwd
 sudo cat /etc/gitlab/initial_root_password
+
+// more management cmd
+sudo gitlab-ctl stop
+sudo gitlab-ctl start
+sudo gitlab-ctl restart
+
 ```
 
-### Or find initial pwd:
+
+
 
 
 
