@@ -1,4 +1,4 @@
-﻿# VM set up & GitLab-self-hosted-lab
+# PartI GitLab-self-hosted-lab
 
 ## Environment
 - Host: Windows
@@ -67,6 +67,70 @@ sudo gitlab-ctl start
 sudo gitlab-ctl restart
 
 ```
+# PartII Docker install GitLab
+Reference: https://docs.docker.com/engine/install/ubuntu/
+```
+# Set Docker environment, create docker key
+sudo apt update
+sudo apt install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources( run all at the once) 
+sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
+Types: deb
+URIs: https://download.docker.com/linux/ubuntu
+Suites: $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
+Components: stable
+Signed-By: /etc/apt/keyrings/docker.asc
+EOF
+
+sudo apt update
+
+# Install docker : Docker Engine, Docker CMD, container runtime, build img, multi container
+sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+
+# Test
+docker --version
+sudo docker run hello-world
+
+# Run Gitlab Docker Container
+sudo docker run --detach \
+--hostname gitlab.local \
+--publish 8080:80 \
+--publish 8443:443 \
+--publish 2224:22 \
+--name gitlab \
+--restart always \
+--volume /srv/gitlab/config:/etc/gitlab \
+--volume /srv/gitlab/logs:/var/log/gitlab \
+--volume /srv/gitlab/data:/var/opt/gitlab \
+gitlab/gitlab-ce:latest
+
+# Check GitLab Container 
+docker ps
+# (if able to see, means GitLab container is running)
+gitlab/gitlab-ce
+
+# Open GitLab
+http://localhost:8080
+# if not able to visit
+docker logs -f gitlab
+
+# docker container lifecycle
+docker run -> container running ->
+docker stop -> container stopped ->
+docker start -> container running.
+
+
+
+```
+
+
+
+
+
 
 
 
