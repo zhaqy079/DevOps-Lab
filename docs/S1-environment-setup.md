@@ -50,25 +50,45 @@ sudo EXTERNAL_URL="http://localhost" apt install gitlab-ce
 
 ## Access
 ```
-// check status
+# Check status
 sudo gitlab-ctl status
 sudo gitlab-rake gitlab:env:info
 sudo gitlab-ctl tail
 
-// access at the browser 
+# Access at the browser 
 http://localhost
 
-// check root pwd
+# Check root pwd
 sudo cat /etc/gitlab/initial_root_password
 
-// more management cmd
+# More management cmd
 sudo gitlab-ctl stop
 sudo gitlab-ctl start
 sudo gitlab-ctl restart
 
 ```
-# PartII Docker install GitLab
-Reference: https://docs.docker.com/engine/install/ubuntu/
+
+# PartII Docker install GitLab 
+- NOTES SEPERATE VM, OR DELETE SELF HOST VERSION 
+- Reference: https://docs.docker.com/engine/install/ubuntu/
+```
+# Delete steps
+sudo gitlab-ctl status
+sudo gitlab-ctl stop
+sudo apt remove gitlab-ce -y
+sudo apt purge gitlab-ce -y
+# Delete all repo data
+sudo rm -rf /etc/gitlab
+sudo rm -rf /var/log/gitlab
+sudo rm -rf /var/opt/gitlab
+# Check 
+sudo ss -tulpn | grep -E '80|443|22'
+```
+## Steps
+1 Install Docker
+2 Pull GitLab image
+3 Run cont
+
 ```
 # Set Docker environment, create docker key
 sudo apt update
@@ -124,6 +144,15 @@ docker stop -> container stopped ->
 docker start -> container running.
 
 
+# Test
+# Check Docker service status
+sudo systemctl status docker
+# If not active
+sudo systemctl start docker
+sudo systemctl enable docker
+# Check if gitLab is active
+sudo docker ps -a
+sudo docker logs -f gitlab
 
 ```
 
