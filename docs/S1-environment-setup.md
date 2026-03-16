@@ -154,6 +154,8 @@ sudo systemctl enable docker
 sudo docker ps -a
 sudo docker logs -f gitlab
 
+# Find the initial pwd
+sudo docker exec gitlab cat /etc/gitlab/initial_root_password
 ```
 
 
